@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = philo
 
@@ -8,8 +8,9 @@ LIB = mandatory/philo.h
 
 SRCS = 	mandatory/main.c \
 		mandatory/utils.c \
-		mandatory/init.c \
 		mandatory/philo.c \
+		mandatory/begin_sim.c \
+
 
 OBJS = $(SRCS:.c=.o)
 
