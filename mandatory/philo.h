@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:52 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/05 18:09:39 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:26:15 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ typedef struct s_philo
     pthread_t       id_t;
     pthread_mutex_t left_fork;
     pthread_mutex_t *right_fork;
-    long            last_mile;
-    int             id;
+    long            last_meal;
+    int             meals;
+    int             id_n;
     struct s_data   *data;
 
 }t_philo;
 
 typedef struct s_data
 {
-    t_philo *ph;
-    long    time_init;
+    t_philo     *ph;
+    pthread_t   eat_t;
+    pthread_t   dead;
+    long        time_init;
     struct  timeval time;
     int     nbr_of_philo;
     int     time_to_die;
@@ -48,5 +51,6 @@ long    ft_atoi(char *str);
 int     check_args(int ac, char **av);
 int     begin_sim(int ac, t_data *data, char **av);
 void    *philosophers(void *ptr);
+void    *check_eat_times(void *ptr);
 
 #endif

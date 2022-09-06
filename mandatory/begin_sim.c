@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:37:53 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/05 18:11:26 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:26:27 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,15 @@ int begin_sim(int ac, t_data *data, char **av)
     {
         pthread_mutex_init(&data->ph[i].left_fork, NULL);
         data->ph[i].right_fork = &data->ph[(i + 1) % data->nbr_of_philo].left_fork;
-        data->ph[i].id = i;
+        data->ph[i].id_n = i;
         data->ph[i].data = data;
+        data->ph[i].meals = 0;
         i++;
     }
     i = 0;
+    if (ac == 6)
+        pthread_create(&data->eat_t, NULL, check_eat_times, data);
+    //pthread_create(&data->dead, NULL, check_status, data);
     while (i < data->nbr_of_philo)
     {
         pthread_create(&data->ph[i].id_t, NULL, philosophers, &data->ph[i]);
