@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 14:34:41 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/05 18:09:57 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/07 14:34:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int main(int ac, char **av)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
     if (check_args(ac, av))
         return (0);
+    
     if (begin_sim(ac ,&data, av))
         return (0);
 }

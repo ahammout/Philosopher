@@ -1,9 +1,31 @@
 #include"philo.h"
 
-int exit_error(char *error)
+void	ft_print(t_philo *philo, char *status, int action)
 {
-    printf("%s\n", error);
-    return(0);
+	pthread_mutex_lock(&philo->data->lock);
+	printf("[%ld] %d %s\n", get_time(philo->data), philo->id_n + 1, status);
+	if (action == 0)
+		pthread_mutex_unlock(&philo->data->lock);
+	// if (philo->data->philo_full == philo->data->nbr_of_philo)
+	// 	printf("all philos %d finish eating\n", philo->data->philo_full);
+}
+
+int	exit_error(t_data *data, char *error, int option)
+{
+	int i;
+
+	i = 0;
+	if (option == 0)
+	{
+    	printf("%s\n", error);
+		return (1);
+	}
+	if (option == 1)
+	{
+		free(data->ph);
+		printf("%s\n", error);
+	}
+	return (0);
 }
 
 long	ft_atoi(char *str)
