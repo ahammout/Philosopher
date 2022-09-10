@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:52 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/09 19:30:40 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:39:34 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
     int             eat_times;
     int             full;
     int             dead;
+    int             time_diff;
     
 }t_data;
 
