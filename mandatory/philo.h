@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:52 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/10 17:39:34 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:48:54 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct s_data
     t_philo         *ph;
     pthread_t       eat_t;
     pthread_t       dead_t;
-    pthread_mutex_t lock; 
+    pthread_mutex_t lock_1;
+    pthread_mutex_t lock_2;
     long            time_init;
     struct          timeval time;
     int             nbr_of_philo;
@@ -54,11 +55,11 @@ int     exit_error(t_data *data, char *error, int option);
 long    ft_atoi(char *str);
 int     check_args(int ac, char **av);
 int     begin_sim(int ac, t_data *data, char **av);
-void    *philosophers(void *ptr);
 void    *check_eat_times(void *ptr);
+void    *check_dead(void *ptr);
+void    *philosophers(void *ptr);
 long    get_time(t_data *data);
 void	ft_print(t_philo *philo, char *status, int action);
-void    *check_status(void *ptr);
 void    end_sim(t_data *data);
 
 #endif

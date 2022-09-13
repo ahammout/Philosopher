@@ -10,6 +10,7 @@ SRCS = 	mandatory/main.c \
 		mandatory/utils.c \
 		mandatory/philo.c \
 		mandatory/begin_sim.c \
+		mandatory/checkers.c \
 
 
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 14:34:41 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/07 14:34:40 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:55:26 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ int main(int ac, char **av)
     
     if (begin_sim(ac ,&data, av))
         return (0);
+    return (0);
 }
