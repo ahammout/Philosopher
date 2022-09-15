@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:45 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/13 18:22:32 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:45:10 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void    end_sim(t_data *data)
         pthread_mutex_destroy(&data->ph[i].left_fork);
         i++;
     }
-    pthread_mutex_destroy(&data->lock);
+    pthread_mutex_destroy(&data->lock_1);
+    pthread_mutex_destroy(&data->lock_2);
     //free(data->ph);
 }
 
