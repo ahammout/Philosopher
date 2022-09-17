@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:37:53 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/13 18:50:36 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:59:08 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int init_mutex(t_data *data)
     }
     if (pthread_mutex_init(&data->lock_1, NULL) != 0)
         exit_error(data, "philo: Failed to init mutex", 1);
-    if (pthread_mutex_init(&data->lock_2, NULL) != 0)
-        exit_error(data, "philo: Failed to init mutex", 1);
     return (0);
 }
 
@@ -85,8 +83,8 @@ int init_data(int ac, t_data *data, char **av)
         exit_error(data, "philo: Invalid number of philosophers", 0);
         return (1);
     }
-    data->eat_times = 0;
     data->dead = 0;
+    data->eat_times = 0;
     data->time_to_die = ft_atoi(av[2]);
     data->time_to_eat = ft_atoi(av[3]);
     data->time_to_sleep = ft_atoi(av[4]);
@@ -114,7 +112,7 @@ int begin_sim(int ac, t_data *data, char **av)
         return (1);
     while (i < data->nbr_of_philo)
     {
-        if (pthread_join(data->ph[i].id_t, NULL) != 0)
+        if (pthread_detach(data->ph[i].id_t) != 0)
             exit_error(data, "philo: Failed to join a thread!", 1);
         i++;
     }

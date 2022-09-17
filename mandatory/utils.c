@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:39:15 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/13 18:54:03 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:35:41 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ long get_time(t_data *data)
 }
 
 void	ft_print(t_philo *philo, char *status, int action)
-{
-	pthread_mutex_lock(&philo->data->lock_2);
+{	
 	pthread_mutex_lock(&philo->data->lock_1);
 	printf("[%ld] %d %s\n", get_time(philo->data), philo->id_n + 1, status);
-	pthread_mutex_unlock(&philo->data->lock_1);
-	pthread_mutex_unlock(&philo->data->lock_2);
-	action = 0;
+	if (!action )
+		pthread_mutex_unlock(&philo->data->lock_1);
 }
 
 int	exit_error(t_data *data, char *error, int option)

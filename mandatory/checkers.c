@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:12:43 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/13 18:27:57 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:10:51 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    *check_eat_times(void *ptr)
     i = 0;
     while (1)
     {
-        if (data->eat_times == 0)
+        if (data->eat_times <= 0)
         {
             data->full = 1;
             break;

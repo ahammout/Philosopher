@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:45 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/15 15:45:10 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:35:16 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void    end_sim(t_data *data)
         i++;
     }
     pthread_mutex_destroy(&data->lock_1);
-    pthread_mutex_destroy(&data->lock_2);
     //free(data->ph);
 }
 
@@ -35,16 +34,6 @@ void    *philosophers(void *ptr)
     philo = ptr;
     while(1)
     {
-        if (philo->data->dead == 1)
-        {
-            end_sim(philo->data);
-            break;
-        }
-        if (philo->data->full == 1)
-        {
-            end_sim(philo->data);
-            break;
-        }
         if (philo->id_n == 0)
         {
             ft_print(philo, "has taken the right fork", 0);
