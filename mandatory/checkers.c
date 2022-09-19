@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:12:43 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/17 17:10:51 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:39:58 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,34 @@ void    *check_eat_times(void *ptr)
 {
     t_data  *data;
     int     i;
-    int     eat;
+    int     is_full;
     
     data = ptr;
     data->full = 0;
-    eat = 0;
+    is_full = 0;
         
     i = 0;
     while (1)
     {
-        if (data->eat_times <= 0)
+        if (data->eat_times <= 0 || data->dead == 1)
         {
             data->full = 1;
-            break;
+            return (0);
         }
         while (i < data->nbr_of_philo)
         {
-            if (data->ph[i].meals >= data->eat_times)
-                eat++;
+            if (data->ph[i].meals == data->eat_times)
+                is_full++;
+            if (is_full == data->nbr_of_philo)
+            {
+                data->full = 1;
+                printf("FINISH EATING\n\n\n");
+                return (0);
+            }
             i++;
         }
-        if (eat == data->nbr_of_philo && i == data->nbr_of_philo)
-        {
-            //ft_print(data->ph, "Finish Eating", 1);
-            data->full = 1;
-            break;
-        }
         i = 0;
-        eat = 0;
+        //printf("Is full: %d & var i: %d\n", is_full, i);
     }
     return (0);
 }
@@ -61,9 +61,10 @@ void    *check_dead(void *ptr)
         while (i < data->nbr_of_philo)
         {
             time = get_time(data);
-            if (time > (data->ph[i].last_meal + data->time_to_die))
+            if (time > (data->ph[i].last_meal + data->time_to_die) || (data->full == 1))
             {
-                ft_print(&data->ph[i], "dead", 1);
+                if (data->full != 1)
+                    ft_print(&data->ph[i], "dead", 1);
                 data->dead = 1;
                 break;
             }

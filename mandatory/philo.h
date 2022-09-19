@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:52 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/17 16:16:00 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:35:58 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_data
     pthread_t       eat_t;
     pthread_t       dead_t;
     pthread_mutex_t lock_1;
-    pthread_mutex_t lock_2;
     long            time_init;
     struct          timeval time;
     int             nbr_of_philo;
