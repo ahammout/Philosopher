@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:52 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/19 15:35:58 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:15:39 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_data
     
 }t_data;
 
-int     exit_error(t_data *data, char *error, int option);
 long    ft_atoi(char *str);
 int     check_args(int ac, char **av);
 int     begin_sim(int ac, t_data *data, char **av);
@@ -59,6 +58,5 @@ void    *check_dead(void *ptr);
 void    *philosophers(void *ptr);
 long    get_time(t_data *data);
 void	ft_print(t_philo *philo, char *status, int action);
-void    end_sim(t_data *data);
-
+int     end_sim(t_data *data, char *error, int option);
 #endif

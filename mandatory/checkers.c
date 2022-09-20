@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:12:43 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/19 18:39:58 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:10:37 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ void    *check_eat_times(void *ptr)
             if (is_full == data->nbr_of_philo)
             {
                 data->full = 1;
-                printf("FINISH EATING\n\n\n");
                 return (0);
             }
             i++;
         }
         i = 0;
-        //printf("Is full: %d & var i: %d\n", is_full, i);
     }
     return (0);
 }
@@ -61,7 +59,8 @@ void    *check_dead(void *ptr)
         while (i < data->nbr_of_philo)
         {
             time = get_time(data);
-            if (time > (data->ph[i].last_meal + data->time_to_die) || (data->full == 1))
+            if (time > (data->ph[i].last_meal + data->time_to_die)
+                || (data->full == 1) || data->nbr_of_philo == 1)
             {
                 if (data->full != 1)
                     ft_print(&data->ph[i], "dead", 1);
