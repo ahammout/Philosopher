@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:37:53 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/20 19:19:37 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:08:19 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int init_mutex(t_data *data)
         }
         if (data->nbr_of_philo > 1)
             data->ph[i].right_fork = &data->ph[(i + 1) % (data->nbr_of_philo)].left_fork;
-        //printf("%d\n\n\n\n", (i + 1) % (data->nbr_of_philo));
         data->ph[i].id_n = i;
         data->ph[i].data = data;
         data->ph[i].meals = 0;

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:12:43 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/20 19:10:37 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:24:21 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void    *check_dead(void *ptr)
             if (time > (data->ph[i].last_meal + data->time_to_die)
                 || (data->full == 1) || data->nbr_of_philo == 1)
             {
+                data->dead = 1;
                 if (data->full != 1)
                     ft_print(&data->ph[i], "dead", 1);
-                data->dead = 1;
                 break;
             }
             i++;
