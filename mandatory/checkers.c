@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:12:43 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/23 18:24:21 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:46:38 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,21 @@ void    *check_eat_times(void *ptr)
     int     is_full;
     
     data = ptr;
-    data->full = 0;
+    
+    i = 1;
     is_full = 0;
-        
-    i = 0;
-    while (1)
+    while (i <= data->nbr_of_philo)
     {
-        if (data->eat_times <= 0 || data->dead == 1)
+        if (data->ph[i].meals == data->eat_times)
+            is_full++;
+        if (is_full == data->nbr_of_philo)
         {
             data->full = 1;
             return (0);
         }
-        while (i < data->nbr_of_philo)
-        {
-            if (data->ph[i].meals == data->eat_times)
-                is_full++;
-            if (is_full == data->nbr_of_philo)
-            {
-                data->full = 1;
-                return (0);
-            }
-            i++;
-        }
-        i = 0;
+        if (i == data->nbr_of_philo)
+            i = 0;
+        i++;
     }
     return (0);
 }
@@ -59,12 +51,14 @@ void    *check_dead(void *ptr)
         while (i < data->nbr_of_philo)
         {
             time = get_time(data);
+          //printf("The last meal of  philo [ %d ]: %ld\n\n", data->ph[i].id_n, data->ph[i].last_meal);
             if (time > (data->ph[i].last_meal + data->time_to_die)
                 || (data->full == 1) || data->nbr_of_philo == 1)
             {
                 data->dead = 1;
                 if (data->full != 1)
                     ft_print(&data->ph[i], "dead", 1);
+                printf("The last meal of  philo [ %d ]: %ld real time: %ld\n\n", data->ph[i].id_n + 1, data->ph[i].last_meal, time);
                 break;
             }
             i++;

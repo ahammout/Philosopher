@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:39:15 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/23 18:29:36 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:08:15 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_print(t_philo *philo, char *status, int action)
 {	
-    (void)action;
+	(void)action;
 	pthread_mutex_lock(&philo->data->lock_1);
-	printf("[%ld] %d %s\n", get_time(philo->data), philo->id_n + 1, status);
+	printf("%ldms	%d %s\n", get_time(philo->data), philo->id_n + 1, status);
 	if (philo->data->dead == 0 || philo->data->full == 0)
 		pthread_mutex_unlock(&philo->data->lock_1);
 }

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:37:53 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/23 19:08:19 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:06:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ int laod_philosophers(t_data *data)
         }
         i++;
     }
+    i = 0;
+    while (i < data->nbr_of_philo)
+    {
+        if (pthread_detach(data->ph[i].id_t) != 0)
+        {
+            end_sim(data, "philo: failed to detach a thread", 1);
+            return (1);
+        }
+        i++;
+    }
     return (0);
 }
 
@@ -34,6 +44,7 @@ int laod_checkers(int ac, t_data *data)
     int i;
 
     i = 0;
+    (void) ac;
     if (ac == 6)
     {
         if (pthread_create(&data->eat_t, NULL, check_eat_times, data) != 0)
@@ -41,11 +52,21 @@ int laod_checkers(int ac, t_data *data)
             end_sim(data, "philo: Failed to create a thread!", 2);
             return (1);
         }
+        if (pthread_detach(data->eat_t) != 0)
+        {
+            end_sim(data, "philo: failed to detach a thread", 1);
+            return (1);
+        }
     }
     if (pthread_create(&data->dead_t, NULL, check_dead, data) != 0)
     {
         end_sim(data, "philo: Failed to create a thread!", 1);
         return(1);
+    }
+    if (pthread_detach(data->dead_t) != 0)
+    {
+        end_sim(data, "philo: failed to detach a thread", 1);
+        return (1);
     }
     return (0);
 }
@@ -81,7 +102,7 @@ int init_mutex(t_data *data)
 int init_data(int ac, t_data *data, char **av)
 {
     data->nbr_of_philo = ft_atoi(av[1]);
-    if (data->nbr_of_philo == 0 || data->nbr_of_philo >= 200)
+    if (data->nbr_of_philo == 0)
     {
         end_sim(data, "philo: Invalid number of philosophers", 0);
         return (1);
@@ -111,9 +132,6 @@ int init_data(int ac, t_data *data, char **av)
 
 int begin_sim(int ac, t_data *data, char **av)
 {
-    int i;
-    
-    i = 0;
     if (init_data(ac, data, av))
         return (1);
     if (init_mutex(data))
@@ -122,11 +140,5 @@ int begin_sim(int ac, t_data *data, char **av)
         return (1);
     if (laod_philosophers(data))
         return (1);
-    while (i < data->nbr_of_philo)
-    {
-        if (pthread_detach(data->ph[i].id_t) != 0)
-            end_sim(data, "philo: Failed to join a thread!", 1);
-        i++;
-    }
     return (0);
 }

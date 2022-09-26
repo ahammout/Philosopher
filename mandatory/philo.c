@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:45 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/23 19:03:16 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:40:55 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void    *philosophers(void *ptr)
     philo = ptr;
     while(1)
     {
-        if (philo->data->nbr_of_philo == 1)
-            break;
-        if (philo->id_n == 0)
+        if (philo->id_n == 0 && philo->data->nbr_of_philo > 1)
         {
             pthread_mutex_lock(philo->right_fork);
             ft_print(philo, "has taken the right fork", 0);
-        }
+        } 
         pthread_mutex_lock(&philo->left_fork);
         ft_print(philo, "has taken the left fork", 0);
         if (philo->id_n != 0)
@@ -65,9 +63,9 @@ void    *philosophers(void *ptr)
             ft_print(philo, "has taken the right fork", 0);
         }
         ft_print(philo, "is eating", 0);
+        philo->meals++;
         philo->last_meal = get_time(philo->data);
         ft_usleep(philo->data->time_to_eat, get_time(philo->data), philo->data);
-        philo->meals++;
         pthread_mutex_unlock(philo->right_fork);
         pthread_mutex_unlock(&philo->left_fork);
         ft_print(philo, "is sleeping", 0);
