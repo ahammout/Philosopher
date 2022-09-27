@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:12:43 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/26 18:46:38 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:58:25 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    *check_eat_times(void *ptr)
     
     data = ptr;
     
-    i = 1;
+    i = 0;
     is_full = 0;
     while (i <= data->nbr_of_philo)
     {
@@ -29,10 +29,10 @@ void    *check_eat_times(void *ptr)
         if (is_full == data->nbr_of_philo)
         {
             data->full = 1;
-            return (0);
+            break;
         }
         if (i == data->nbr_of_philo)
-            i = 0;
+            i = -1;
         i++;
     }
     return (0);
