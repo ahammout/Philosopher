@@ -2,9 +2,22 @@
 #include <stdio.h>
 #include "flood_fill.h"
 
+void	change_color(int x, int y, char **tab, char color, t_point size)
+{
+	if (x == size.x || y == size.y || x < 0 || y < 0 || tab[y][x] != color)
+		return ;
+	//printf("x :%d | y :%d\n", x, y);
+	tab[y][x] = 'F';
+	change_color(x, y - 1, tab, color, size);
+	change_color(x, y + 1, tab, color, size);
+	change_color(x + 1, y, tab, color, size);
+	change_color(x - 1, y, tab, color, size);
+}
+
 void  flood_fill(char **tab, t_point size, t_point begin)
 {
-    
+	char color = tab[begin.y][begin.x];
+    change_color(begin.x, begin.y, tab, color, size);
 }
 
 char** make_area(char** zone, t_point size)
