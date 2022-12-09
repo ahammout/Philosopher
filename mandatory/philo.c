@@ -6,71 +6,83 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:45 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/26 18:40:55 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:24:58 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-void	ft_usleep(unsigned long time, unsigned long start, t_data *data)
-{
-	usleep(time * 1000 * 0.95);
-	while (get_time(data) - start < time)
+/*    ////////// OLDEST THINKING AREA //////////////////
+    if (philo->id_n == 0 && philo->data->nbr_of_philo > 1)
     {
-        ;
+        pthread_mutex_lock(philo->right_fork);
+        ft_print(philo, "has taken the right fork");
+    } 
+    pthread_mutex_lock(&philo->left_fork);
+    ft_print(philo, "has taken the left fork");
+    if (philo->id_n != 0)
+    {
+        pthread_mutex_lock(philo->right_fork);
+        ft_print(philo, "has taken the right fork");
     }
+*/
+
+void	ft_print(t_philo *philo, char *status)
+{	
+	pthread_mutex_lock(&philo->data->lock_1);
+	printf("%ldms	%d %s\n", get_time(philo->data), philo->id, status);
+	if (philo->data->dead == 0 || philo->data->all_full == 0)
+		pthread_mutex_unlock(&philo->data->lock_1);
 }
 
-int	end_sim(t_data *data, char *error, int option)
+void    thinking(t_philo *philo)
 {
-	int i;
-
-	i = 0;
-	if (option == 1)
-		free(data->ph);
-	if (option == 2 || option == 3)
-	{
-		while (i < data->nbr_of_philo)
-		{
-			pthread_mutex_destroy(&data->ph[i].left_fork);
-			i++;
-		}
-		pthread_mutex_destroy(&data->lock_1);
-		free(data->ph);
-	}
-    if (option == 2 || option == 1)
-	    printf("%s\n", error);
-	return (0);
+    ft_print(philo, "is thinking");
+    if (philo->id % 2 == 0)
+        usleep(50);
+    pthread_mutex_lock(&philo->left_fork);
+    ft_print(philo, "has taken the left fork");
+    if (philo->data->nbr_of_philo == 1)
+    {
+        philo->data->dead = 1;
+        ft_usleep(2, get_time(philo->data), philo->data);
+    }
+    pthread_mutex_lock(philo->right_fork);
+    ft_print(philo, "has taken the right fork");
 }
 
-void    *philosophers(void *ptr)
+void    eating(t_philo *philo)
 {
-    t_philo  *philo;
+    ft_print(philo, "is eating");
+    philo->meals++;
+    philo->last_meal = get_time(philo->data);
+    ft_usleep(philo->data->time_to_eat, get_time(philo->data), philo->data);
+    pthread_mutex_unlock(philo->right_fork);
+    pthread_mutex_unlock(&philo->left_fork);
+}
+
+void    sleeping(t_philo *philo)
+{
+    ft_print(philo, "is sleeping");
+    ft_usleep(philo->data->time_to_sleep, get_time(philo->data), philo->data);
+}
+
+void    *dining_room(void *ptr)
+{
+    t_philo *philo;
 
     philo = ptr;
-    while(1)
+    while (philo->data->all_full != 1 && philo->data->dead != 1)
     {
-        if (philo->id_n == 0 && philo->data->nbr_of_philo > 1)
-        {
-            pthread_mutex_lock(philo->right_fork);
-            ft_print(philo, "has taken the right fork", 0);
-        } 
-        pthread_mutex_lock(&philo->left_fork);
-        ft_print(philo, "has taken the left fork", 0);
-        if (philo->id_n != 0)
-        {
-            pthread_mutex_lock(philo->right_fork);
-            ft_print(philo, "has taken the right fork", 0);
-        }
-        ft_print(philo, "is eating", 0);
-        philo->meals++;
-        philo->last_meal = get_time(philo->data);
-        ft_usleep(philo->data->time_to_eat, get_time(philo->data), philo->data);
-        pthread_mutex_unlock(philo->right_fork);
-        pthread_mutex_unlock(&philo->left_fork);
-        ft_print(philo, "is sleeping", 0);
-        ft_usleep(philo->data->time_to_sleep, get_time(philo->data), philo->data);
-        ft_print(philo, "is thinking", 0);
+
+        //////// THINKING AREA //////////
+        thinking (philo);
+
+        /////// EATING AREA ////////////
+        eating (philo);
+
+        ////// SLEEPING AREA ///////////
+        sleeping(philo);
     }
     return (0);
 }

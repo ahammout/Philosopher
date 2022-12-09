@@ -6,19 +6,40 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:39:15 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/26 16:08:15 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:56:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-void	ft_print(t_philo *philo, char *status, int action)
-{	
-	(void)action;
-	pthread_mutex_lock(&philo->data->lock_1);
-	printf("%ldms	%d %s\n", get_time(philo->data), philo->id_n + 1, status);
-	if (philo->data->dead == 0 || philo->data->full == 0)
-		pthread_mutex_unlock(&philo->data->lock_1);
+int	end_sim(t_data *data, char *error, int option)
+{
+	int i;
+
+	i = 0;
+	if (option == 1)
+		free(data->ph);
+	if (option == 2 || option == 3)
+	{
+		while (i < data->nbr_of_philo)
+		{
+			pthread_mutex_destroy(&data->ph[i].left_fork);
+			i++;
+		}
+		free(data->ph);
+	}
+    if (option == 2 || option == 1)
+	    printf("%s\n", error);
+	return (0);
+}
+
+void	ft_usleep(unsigned long time, unsigned long start, t_data *data)
+{
+	usleep(time * 1000 * 0.95);
+	while (get_time(data) - start < time)
+    {
+        ;
+    }
 }
 
 long get_time(t_data *data)

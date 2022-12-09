@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:05:52 by ahammout          #+#    #+#             */
-/*   Updated: 2022/09/25 17:04:29 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:10:20 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 
 typedef struct s_philo
 {
-    pthread_t       id_t;
+    pthread_t       t_id;
     pthread_mutex_t left_fork;
     pthread_mutex_t *right_fork;
     long            last_meal;
     int             meals;
-    int             id_n;
+    int             full;
+    int             id;
     struct s_data   *data;
 
 }t_philo;
@@ -44,7 +45,7 @@ typedef struct s_data
     int             time_to_eat;
     int             time_to_sleep;
     int             eat_times;
-    int             full;
+    int             all_full;
     int             dead;
     int             time_diff;
     
@@ -53,10 +54,10 @@ typedef struct s_data
 long    ft_atoi(char *str);
 int     check_args(int ac, char **av);
 int     begin_sim(int ac, t_data *data, char **av);
-void    *check_eat_times(void *ptr);
-void    *check_dead(void *ptr);
-void    *philosophers(void *ptr);
+void    *dining_room(void *ptr);
+void	ft_usleep(unsigned long time, unsigned long start, t_data *data);
 long    get_time(t_data *data);
-void	ft_print(t_philo *philo, char *status, int action);
+void	ft_print(t_philo *philo, char *status);
+void    check_status(t_data *data);
 int     end_sim(t_data *data, char *error, int option);
 #endif
