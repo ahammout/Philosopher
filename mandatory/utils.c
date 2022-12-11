@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/10 18:39:15 by ahammout          #+#    #+#             */
-/*   Updated: 2022/12/09 18:56:40 by ahammout         ###   ########.fr       */
+/*   Created: 2022/12/11 13:32:39 by ahammout          #+#    #+#             */
+/*   Updated: 2022/12/11 21:30:20 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	end_sim(t_data *data, char *error, int option)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (option == 1)
@@ -28,8 +28,8 @@ int	end_sim(t_data *data, char *error, int option)
 		}
 		free(data->ph);
 	}
-    if (option == 2 || option == 1)
-	    printf("%s\n", error);
+	if (option == 2 || option == 1)
+		printf("%s\n", error);
 	return (0);
 }
 
@@ -37,23 +37,43 @@ void	ft_usleep(unsigned long time, unsigned long start, t_data *data)
 {
 	usleep(time * 1000 * 0.95);
 	while (get_time(data) - start < time)
-    {
-        ;
-    }
+	{
+	}
 }
 
-long get_time(t_data *data)
+long	get_time(t_data *data)
 {
-    long ms_time;
+	long	ms_time;
 
-    ms_time = 0;
-    if (gettimeofday(&data->time, NULL) == -1)
+	ms_time = 0;
+	gettimeofday(&data->time, NULL);
+	ms_time = (data->time.tv_sec * 1000 + data->time.tv_usec / 1000);
+	ms_time -= data->time_init;
+	return (ms_time);
+}
+
+int	is_ipositive(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
 	{
-		end_sim(data, "philo: Failed to get time of day!", 2);
-        return (0);
+		j = 0;
+		while (av[i][j] == ' ' || av[i][j] == '\t')
+			j++;
+		if (av[i][j] == '-')
+			return (0);
+		while (av[i][j])
+		{
+			if (!(av[i][j] >= '0' && av[i][j] <= '9'))
+				return (0);
+			j++;
+		}
+		i++;
 	}
-    ms_time = (data->time.tv_sec*1000 + data->time.tv_usec/1000) - data->time_init;
-    return (ms_time);
+	return (1);
 }
 
 long	ft_atoi(char *str)
