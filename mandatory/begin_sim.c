@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_sim.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:52:03 by ahammout          #+#    #+#             */
-/*   Updated: 2022/12/11 21:52:09 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:02:53 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	init_data(int ac, t_data *data, char **av)
 	data->eat_times = 0;
 	if (ac == 6)
 		data->eat_times = ft_atoi(av[5]);
-	if (check_data(data))
+	if (check_data(data) || data->nbr_of_philo == 0)
 		return (0);
 	data->dead = 0;
 	data->all_full = 0;

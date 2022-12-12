@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 12:56:21 by ahammout          #+#    #+#             */
-/*   Updated: 2022/12/11 12:58:19 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:12:14 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_args(int ac, char **av)
 	}
 	if (is_ipositive(av) == 0)
 	{
-		printf("philo: Input should countain only positive digits !\n");
+		printf("philo: Arguments needs to be povitive integers.\n");
 		return (0);
 	}
 	return (1);
@@ -43,7 +43,7 @@ int	main(int ac, char **av)
 		if (data.dead == 1 || data.all_full == 1)
 		{
 			ft_usleep(2, get_time(&data), &data);
-			end_sim(&data, NULL, 3);
+			// end_sim(&data, NULL, 3);
 			break ;
 		}
 	}

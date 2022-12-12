@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 13:04:45 by ahammout          #+#    #+#             */
-/*   Updated: 2022/12/11 21:38:42 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:26:44 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	thinking(t_philo *philo)
 	if (philo->data->nbr_of_philo == 1)
 	{
 		philo->data->dead = 1;
-		ft_usleep(2, get_time(philo->data), philo->data);
+		ft_usleep(5, get_time(philo->data), philo->data);
 	}
 	pthread_mutex_lock(philo->right_fork);
 	ft_print(philo, "has taken the right fork");
