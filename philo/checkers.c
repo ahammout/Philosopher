@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:47:16 by ahammout          #+#    #+#             */
-/*   Updated: 2022/12/12 17:00:26 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:11:52 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	check_status(t_data *data)
 		if ((get_time(data) - data->ph[i].last_meal) > data->time_to_die)
 		{
 			data->dead = 1;
-			//////// SLEEP A WHILE TO LET OTHER THREADS FINISH THIER EXEC /////// 
 			ft_usleep(1, get_time(data), data);
 			printf("%ldms	%d died\n", get_time(data), data->ph[i].id);
 			break ;
