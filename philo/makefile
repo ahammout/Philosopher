@@ -4,13 +4,13 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = philo
 
-LIB = philo/philo.h
+LIB = philo.h
 
-SRCS = 	philo/main.c \
-		philo/utils.c \
-		philo/philo.c \
-		philo/begin_sim.c \
-		philo/checkers.c \
+SRCS = 	main.c \
+		utils.c \
+		philo.c \
+		begin_sim.c \
+		checkers.c \
 
 
 OBJS = $(SRCS:.c=.o)

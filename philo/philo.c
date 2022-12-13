@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 13:04:45 by ahammout          #+#    #+#             */
-/*   Updated: 2022/12/12 18:31:08 by ahammout         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:14:35 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	thinking(t_philo *philo)
 	if (philo->id % 2 == 0)
 		usleep(50);
 	pthread_mutex_lock(&philo->left_fork);
-	ft_print(philo, "has taken the left fork");
+	ft_print(philo, "has taken a fork");
 	if (philo->data->nbr_of_philo == 1)
 	{
 		philo->data->dead = 1;
@@ -52,7 +52,7 @@ void	thinking(t_philo *philo)
 		ft_usleep(5, get_time(philo->data), philo->data);
 	}
 	pthread_mutex_lock(philo->right_fork);
-	ft_print(philo, "has taken the right fork");
+	ft_print(philo, "has taken a fork");
 }
 
 void	*dining_room(void *ptr)
